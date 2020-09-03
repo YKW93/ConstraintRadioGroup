@@ -1,2 +1,3 @@
+include ':constraint-radiogroup'
 include ':app'
 rootProject.name = "ConstraintRadioGroup"
