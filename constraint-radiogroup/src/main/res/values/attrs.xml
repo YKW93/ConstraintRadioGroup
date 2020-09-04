@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ConstraintRadioGroup">
+        <attr name="selected_font" format="reference"/>
+        <attr name="unSelected_font" format="reference"/>
+        <attr name="selected_text_color" format="color|reference" />
+        <attr name="unSelected_text_color" format="color|reference" />
+    </declare-styleable>
+</resources>
