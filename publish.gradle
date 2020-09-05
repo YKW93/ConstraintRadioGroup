@@ -1,0 +1,13 @@
+apply plugin: 'com.novoda.bintray-release'
+
+
+publish {
+    userOrg = 'kiyong48'
+    groupId = 'com.wayne'
+    artifactId = 'constraint-radiogroup'
+    publishVersion = '1.0.0'
+    desc = 'https://github.com/YKW93/ConstraintRadioGroup'
+    website = 'https://github.com/YKW93/ConstraintRadioGroup'
+    issueTracker = 'https://github.com/YKW93/ConstraintRadioGroup/issues'
+    repository = "https://github.com/YKW93/ConstraintRadioGroup.git"
+}
