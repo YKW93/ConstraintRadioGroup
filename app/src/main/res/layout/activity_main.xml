@@ -1,18 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_default_radio_btn_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Default Radio Button"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.wayne.constraintradiogroup.ConstraintRadioGroup
+        android:id="@+id/crg_default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_default_radio_btn_title"
+        app:selected_font="@font/roboto_bold"
+        app:selected_text_color="@android:color/holo_red_dark"
+        app:unSelected_font="@font/roboto_light"
+        app:unSelected_text_color="@android:color/black">
+
+        <RadioButton
+            android:id="@+id/rb_text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Text 1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rb_text2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rb_text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Text 2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rb_text3"
+            app:layout_constraintStart_toEndOf="@+id/rb_text1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rb_text3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Text 3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_text2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.wayne.constraintradiogroup.ConstraintRadioGroup>
+
+    <TextView
+        android:id="@+id/tv_custom_drawable_radio_btn_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Custom Drawable Radio Button"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crg_default" />
+
+    <com.wayne.constraintradiogroup.ConstraintRadioGroup
+        android:id="@+id/crg_custom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_custom_drawable_radio_btn_title"
+        app:selected_font="@font/roboto_bold"
+        app:selected_text_color="@android:color/holo_red_dark"
+        app:unSelected_font="@font/roboto_light"
+        app:unSelected_text_color="@android:color/black">
+
+
+        <RadioButton
+            android:id="@+id/rb_custom_text1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/selector_radio_group"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Text 1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2.5"
+            app:layout_constraintEnd_toStartOf="@+id/rb_custom_text2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rb_custom_text2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_radio_group"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="Text 2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2.5"
+            app:layout_constraintEnd_toStartOf="@+id/rb_custom_text3"
+            app:layout_constraintStart_toEndOf="@+id/rb_custom_text1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rb_custom_text3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/selector_radio_group"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="Text 3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_custom_text2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </com.wayne.constraintradiogroup.ConstraintRadioGroup>
+
+    <TextView
+        android:id="@+id/tv_check_box_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Using CheckBox"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crg_custom" />
+
+    <com.wayne.constraintradiogroup.ConstraintRadioGroup
+        android:id="@+id/crg_check_box"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_check_box_title"
+        app:selected_font="@font/roboto_bold"
+        app:selected_text_color="@android:color/holo_red_dark"
+        app:unSelected_font="@font/roboto_light"
+        app:unSelected_text_color="@android:color/black">
+
+        <CheckBox
+            android:id="@+id/cb_text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Text 1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cb_text2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/cb_text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Text 2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cb_text3"
+            app:layout_constraintStart_toEndOf="@+id/cb_text1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/cb_text3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Text 3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cb_text2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.wayne.constraintradiogroup.ConstraintRadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
