@@ -9,15 +9,19 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.RadioButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.children
 
 
 class ConstraintRadioGroup @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null
-) : ConstraintLayout(context, attrs) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     var checkedChangeListener: OnCheckedChangeListener? = null
 
@@ -31,7 +35,9 @@ class ConstraintRadioGroup @JvmOverloads constructor(
     var unSelectedTextTypeface: Typeface? = null
         private set
 
-    private var checkedButton: CompoundButton? = null
+    private val checkedButtons: ArrayList<CompoundButton> = arrayListOf()
+
+    private var isMultiple: Boolean = false
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ConstraintRadioGroup)
@@ -43,6 +49,8 @@ class ConstraintRadioGroup @JvmOverloads constructor(
             typedArray.getColor(R.styleable.ConstraintRadioGroup_selected_text_color, Color.BLACK)
         unSelectedTextColor =
             typedArray.getColor(R.styleable.ConstraintRadioGroup_unSelected_text_color, Color.BLACK)
+
+        isMultiple = typedArray.getBoolean(R.styleable.ConstraintRadioGroup_is_multiple_select, false)
 
         try {
             selectedTextTypeface = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -74,13 +82,13 @@ class ConstraintRadioGroup @JvmOverloads constructor(
 
     override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {
         if (child is CompoundButton) {
-            if (child.isChecked) {
-                checkedButton = child
+            if (child.isChecked && checkedButtons.count { it is RadioButton } == 1) {
+                checkedButtons.add(child)
             }
             setCheckedStateForView(child, false)
 
             child.setOnCheckedChangeListener { buttonView, isChecked ->
-                setCheckedButton(buttonView)
+                setCheckedButton(buttonView, isChecked)
             }
         }
         super.addView(child, index, params)
@@ -88,8 +96,24 @@ class ConstraintRadioGroup @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        checkedButton?.let {
-            setCheckedStateForView(it, true)
+        if(children.all { it is RadioButton }) {
+            isMultiple = false
+            // Default choose first
+            checkedButtons.firstOrNull()?.let {
+                checkedButtons.clear()
+                checkedButtons.add(it)
+            }
+            checkedButtons.singleOrNull()?.let {
+                setCheckedStateForView(it, true)
+            }
+        } else if(!isMultiple) {
+            checkedButtons.singleOrNull()?.let {
+                setCheckedStateForView(it, true)
+            }
+        } else {
+            checkedButtons.forEach {
+                setCheckedStateForView(it, true)
+            }
         }
     }
 
@@ -104,18 +128,51 @@ class ConstraintRadioGroup @JvmOverloads constructor(
         compoundButton.isChecked = checked
     }
 
-    private fun setCheckedButton(compoundButton: CompoundButton) {
-        val changed = checkedButton != compoundButton
+    private fun setCheckedButton(compoundButton: CompoundButton, isChecked: Boolean) {
+        if(!isMultiple) {
+            val changed = checkedButtons.singleOrNull() != compoundButton
 
-        if (changed) {
-            checkedChangeListener?.onCheckedChanged(this, compoundButton)
+            if (changed) {
+                checkedChangeListener?.onCheckedChanged(this, compoundButton, isChecked)
 
-            setCheckedStateForView(compoundButton, true)
+                setCheckedStateForView(compoundButton, true)
 
-            checkedButton?.let {
-                setCheckedStateForView(it, false)
+                checkedButtons.singleOrNull()?.let {
+                    setCheckedStateForView(it, false)
+                }
+                checkedButtons.clear()
+                checkedButtons.add(compoundButton)
+            } else if (compoundButton is CheckBox) {
+                checkedChangeListener?.onCheckedChanged(this, compoundButton, isChecked)
+                setCheckedStateForView(compoundButton, isChecked)
+                if (isChecked) {
+                    checkedButtons.clear()
+                    checkedButtons.add(compoundButton)
+                } else checkedButtons.remove(compoundButton)
             }
-            checkedButton = compoundButton
+        } else {
+            if (compoundButton is RadioButton && children.count { it is RadioButton } > 1) {
+                val changed = checkedButtons.firstOrNull { it is RadioButton } != compoundButton
+
+                if (changed) {
+                    checkedChangeListener?.onCheckedChanged(this, compoundButton, isChecked)
+
+                    setCheckedStateForView(compoundButton, true)
+
+                    checkedButtons.firstOrNull { it is RadioButton }?.let {
+                        setCheckedStateForView(it, false)
+                    }
+                    checkedButtons.removeAll { it is RadioButton }
+                    checkedButtons.add(compoundButton)
+                }
+            } else {
+                checkedChangeListener?.onCheckedChanged(this, compoundButton, isChecked)
+
+                setCheckedStateForView(compoundButton, isChecked)
+
+                if (isChecked) checkedButtons.add(compoundButton)
+                else checkedButtons.remove(compoundButton)
+            }
         }
     }
 }

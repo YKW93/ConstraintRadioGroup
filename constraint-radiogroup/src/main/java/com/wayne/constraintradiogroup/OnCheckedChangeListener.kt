@@ -5,5 +5,5 @@ import androidx.annotation.IdRes
 
 
 interface OnCheckedChangeListener {
-    fun onCheckedChanged(group: ConstraintRadioGroup, checkedButton: CompoundButton)
+    fun onCheckedChanged(group: ConstraintRadioGroup, checkedButton: CompoundButton, isChecked: Boolean)
 }
