@@ -5,5 +5,6 @@
         <attr name="unSelected_font" format="reference"/>
         <attr name="selected_text_color" format="color|reference" />
         <attr name="unSelected_text_color" format="color|reference" />
+        <attr name="is_multiple_select" format="boolean" />
     </declare-styleable>
 </resources>

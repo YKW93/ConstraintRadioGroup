@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         crg_custom.checkedChangeListener = object : OnCheckedChangeListener {
             override fun onCheckedChanged(
                 group: ConstraintRadioGroup,
-                checkedButton: CompoundButton
+                checkedButton: CompoundButton,
+                isChecked: Boolean
             ) {
                 // TODO
 //                (checkedButton as RadioButton)
@@ -25,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         crg_check_box.checkedChangeListener = object : OnCheckedChangeListener {
             override fun onCheckedChanged(
                 group: ConstraintRadioGroup,
-                checkedButton: CompoundButton
+                checkedButton: CompoundButton,
+                isChecked: Boolean
             ) {
                 // TODO
 //                (checkedButton as CheckBox)
